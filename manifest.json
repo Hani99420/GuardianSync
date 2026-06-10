@@ -4,6 +4,7 @@
   "description": "Track your friends in real time during trips and events",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "icons": [
