@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.web.location_tracker_6fa7b.twa",
+    "sha256_cert_fingerprints": ["59:D0:33:02:C7:4A:0C:AE:71:4D:96:30:F4:B9:E9:84:27:D0:A2:55:BD:A5:0C:E0:E8:3B:CA:79:81:27:DF:23"]
+  }
+}]
