@@ -89,18 +89,52 @@
             margin-top: 10px; cursor: pointer; display: inline-block;
         }
     </style>
+    .btn-create {
+    padding: 15px;
+    background: #22c55e;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    width: 260px;
+    font-family: 'Poppins', sans-serif;
+}
+.btn-join {
+    padding: 15px;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    width: 260px;
+    font-family: 'Poppins', sans-serif;
+}
 </head>
 <body>
 
     <div id="intro-page" class="page active">
-        <div class="logo-glow">🛡️</div>
-        <h1 class="main-title">GuardianSync</h1>
-        <div style="font-size:0.7rem; color:#475569; letter-spacing:4px; margin-bottom:30px;">SECURE LIVE GRID</div>
-        
-        <input type="text" id="portal-key" class="portal-input" placeholder="ACCESS KEY OR SESSION CODE">
-        
-        <button class="btn-elegant" id="entry-btn" onclick="launchApp()">INITIALIZE</button>
-        <div style="position: absolute; bottom: 30px; font-size: 0.6rem; letter-spacing: 5px; color: #334155;">DESIGNED BY HANI</div>
+    <img src="icon-512.png" style="width:90px; height:90px; border-radius:20px; margin-bottom:20px;">
+    <h1 class="main-title">GuardianSync</h1>
+    <div style="font-size:0.7rem; color:#475569; letter-spacing:4px; margin-bottom:40px;">WE GOT YOU</div>
+
+    <div id="main-actions" style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+        <button class="btn-create" onclick="startCreateSession()">＋ &nbsp; Create Session</button>
+        <button class="btn-join" onclick="showJoinPanel()">→ &nbsp; Join Session</button>
+    </div>
+
+    <div id="join-panel" style="display:none; flex-direction:column; align-items:center; gap:12px;">
+        <input type="text" id="session-code-input" class="portal-input" placeholder="ENTER SESSION CODE" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn-create" onclick="joinWithCode()">JOIN</button>
+        <button onclick="backToMain()" style="background:none; border:none; color:#475569; font-size:0.75rem; cursor:pointer; letter-spacing:2px;">← BACK</button>
+    </div>
+
+    <div style="position: absolute; bottom: 30px; font-size: 0.6rem; letter-spacing: 5px; color: #334155;">DESIGNED BY HANI</div>
     </div>
 
     <div id="map-page" class="page">
@@ -169,58 +203,57 @@
     const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20.5937, 78.9629], 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    function launchApp() {
-        const inputKey = document.getElementById('portal-key').value.trim().toUpperCase();
-        
-        // THE CHANGE: Authentication key updated to "CREATE SESSION"
-        if (inputKey === "CREATE SESSION") {
-            isHost = true;
-            let rawName = prompt("ACCESS GRANTED. ENTER COMMANDER NAME:") || "HANI";
-            myName = rawName.replace(/[^\w\s]/gi, '').trim() + " (DEV)";
-            if (!groupId) {
-                groupId = Math.random().toString(36).substr(2, 6).toUpperCase();
-                window.location.hash = groupId;
-            }
-        } 
-        else if (inputKey.length === 6) {
-            isHost = false;
-            groupId = inputKey;
-            window.location.hash = groupId;
-            let rawName = prompt("SESSION FOUND. ENTER YOUR IDENTITY:") || "User";
-            myName = rawName.replace(/[^\w\s]/gi, '').trim();
-        } 
-        else if (groupId) {
-            isHost = false;
-            let rawName = prompt("JOINING SECURE GRID. ENTER YOUR IDENTITY:") || "User";
-            myName = rawName.replace(/[^\w\s]/gi, '').trim();
-        }
-        else {
-            alert("INVALID KEY. Please enter CREATE SESSION or a valid session code.");
-            return;
-        }
+    function startCreateSession() {
+    isHost = true;
+    let rawName = prompt("Enter your name:") || "Guardian";
+    myName = rawName.replace(/[^\w\s]/gi, '').trim() + " (Host)";
+    groupId = Math.random().toString(36).substr(2, 6).toUpperCase();
+    window.location.hash = groupId;
+    launchMap();
+}
 
-        document.getElementById('intro-page').classList.remove('active');
-        document.getElementById('map-page').classList.add('active');
-        setTimeout(() => map.invalidateSize(), 300);
+function showJoinPanel() {
+    document.getElementById('main-actions').style.display = 'none';
+    document.getElementById('join-panel').style.display = 'flex';
+    if (groupId) document.getElementById('session-code-input').value = groupId;
+}
 
-        if (isHost) {
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('host-view-btn').style.display = 'block';
-            document.getElementById('role-display').innerText = "⭐ COMMAND HOST | " + groupId;
-            document.getElementById('role-display').style.color = "gold";
-            document.getElementById('role-display').style.borderColor = "gold";
-        } else {
-            document.getElementById('role-display').innerText = "● SECURE NODE | " + groupId;
-            document.getElementById('host-qr-btn').style.display = 'none';
-        }
+function backToMain() {
+    document.getElementById('join-panel').style.display = 'none';
+    document.getElementById('main-actions').style.display = 'flex';
+}
 
-        document.getElementById("qrcode").innerHTML = "";
-        new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 150, height: 150 });
-        document.getElementById('display-code').innerText = groupId;
+function joinWithCode() {
+    const code = document.getElementById('session-code-input').value.trim().toUpperCase();
+    if (code.length !== 6) { alert("Please enter a valid 6-character session code"); return; }
+    isHost = false;
+    groupId = code;
+    window.location.hash = groupId;
+    let rawName = prompt("Enter your name:") || "User";
+    myName = rawName.replace(/[^\w\s]/gi, '').trim();
+    launchMap();
+}
 
-        startGuardian();
+function launchMap() {
+    document.getElementById('intro-page').classList.remove('active');
+    document.getElementById('map-page').classList.add('active');
+    setTimeout(() => map.invalidateSize(), 300);
+    if (isHost) {
+        document.getElementById('admin-panel').style.display = 'block';
+        document.getElementById('host-view-btn').style.display = 'block';
+        document.getElementById('role-display').innerText = "⭐ HOST | " + groupId;
+        document.getElementById('role-display').style.color = "gold";
+        document.getElementById('role-display').style.borderColor = "gold";
+    } else {
+        document.getElementById('role-display').innerText = "● MEMBER | " + groupId;
+        document.getElementById('host-qr-btn').style.display = 'none';
     }
-
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 150, height: 150 });
+    document.getElementById('display-code').innerText = groupId;
+    startGuardian();
+        }
+        
     async function updateNavLine() {
         if (roadLine) map.removeLayer(roadLine);
         if (roadGlow) map.removeLayer(roadGlow);
