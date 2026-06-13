@@ -33,34 +33,18 @@
         .portal-input:focus { border-color: #22c55e; }
 
         .btn-create {
-            padding: 18px;
-            background: linear-gradient(135deg, #FF6B35, #FF8C42);
-            color: white;
-            border: 2px solid transparent;
-            border-radius: 14px;
-            cursor: pointer;
-            letter-spacing: 3px;
-            font-weight: 700;
-            font-size: 1rem;
-            width: 280px;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 0 25px rgba(255, 107, 53, 0.5);
-            box-sizing: border-box;
+            padding: 18px; background: linear-gradient(135deg, #FF6B35, #FF8C42);
+            color: white; border: 2px solid transparent; border-radius: 14px;
+            cursor: pointer; letter-spacing: 3px; font-weight: 700; font-size: 1rem;
+            width: 280px; font-family: 'Poppins', sans-serif;
+            box-shadow: 0 0 25px rgba(255,107,53,0.5); box-sizing: border-box;
         }
         .btn-join {
-            padding: 18px;
-            color: white;
-            border: 2px solid #22c55e;
-            background: transparent;
-            border-radius: 14px;
-            cursor: pointer;
-            letter-spacing: 3px;
-            font-weight: 600;
-            font-size: 1rem;
-            width: 280px;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
-            box-sizing: border-box;
+            padding: 18px; color: white; border: 2px solid #22c55e;
+            background: transparent; border-radius: 14px; cursor: pointer;
+            letter-spacing: 3px; font-weight: 600; font-size: 1rem;
+            width: 280px; font-family: 'Poppins', sans-serif;
+            box-shadow: 0 0 20px rgba(34,197,94,0.2); box-sizing: border-box;
         }
 
         #map { height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; z-index: 1; }
@@ -79,7 +63,8 @@
 
         .chat-container {
             width: 100%; max-width: 320px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); padding: 12px; pointer-events: auto !important; margin-bottom: 25px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); padding: 12px;
+            pointer-events: auto !important; margin-bottom: 25px;
         }
         #chat-logs { height: 80px; overflow-y: auto; font-size: 0.75rem; color: #ccc; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .chat-input-area { display: flex; gap: 8px; }
@@ -93,7 +78,7 @@
         .user-stat-row { font-size: 0.65rem; border-bottom: 1px solid #333; padding: 6px 0; color: #eee; }
 
         .dest-beacon { position: relative; display: flex; align-items: center; justify-content: center; }
-        .beacon-ring { position: absolute; width: 40px; height: 40px; background: rgba(239, 68, 68, 0.4); border-radius: 50%; animation: beaconPulse 1.5s infinite; }
+        .beacon-ring { position: absolute; width: 40px; height: 40px; background: rgba(239,68,68,0.4); border-radius: 50%; animation: beaconPulse 1.5s infinite; }
         .beacon-center { width: 14px; height: 14px; background: #ef4444; border: 2px solid white; border-radius: 50%; z-index: 2; }
 
         @keyframes beaconPulse { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
@@ -114,7 +99,6 @@
 </head>
 <body>
 
-    <!-- LANDING PAGE -->
     <div id="intro-page" class="page active">
         <img src="icon-512.png" alt="GuardianSync" style="width:90px; height:90px; border-radius:20px; margin-bottom:20px;">
         <h1 class="main-title">GuardianSync</h1>
@@ -131,10 +115,9 @@
             <button onclick="backToMain()" style="background:none; border:none; color:#475569; font-size:0.75rem; cursor:pointer; letter-spacing:2px; font-family:'Poppins',sans-serif;">← BACK</button>
         </div>
 
-        <div style="position: absolute; bottom: 30px; font-size: 0.6rem; letter-spacing: 5px; color: #334155;">DESIGNED BY HANI</div>
+        <div style="position:absolute; bottom:30px; font-size:0.6rem; letter-spacing:5px; color:#334155;">DESIGNED BY HANI</div>
     </div>
 
-    <!-- MAP PAGE -->
     <div id="map-page" class="page">
         <div id="map"></div>
         <div id="nav-info-panel"><span id="nav-dist">🛰️ Locating...</span> • <span id="nav-eta">--</span></div>
@@ -142,7 +125,7 @@
         <div class="ui-layer">
             <div class="top-bar">
                 <div class="status" id="role-display">● MEMBER</div>
-                <div style="display: flex; gap: 8px;">
+                <div style="display:flex; gap:8px;">
                     <button id="host-view-btn" style="background:gold; display:none; border:none; padding:6px 12px; border-radius:20px; font-size:0.7rem; font-weight:bold; color:black;" onclick="toggleDashboard()">VIEW STATS</button>
                     <button id="host-qr-btn" style="background:#22c55e; border:none; padding:6px 12px; border-radius:20px; font-size:0.7rem; font-weight:bold; color:black;" onclick="toggleQR()">SHARE</button>
                     <button onclick="leaveSession()" style="background:#333; color:white; border:none; padding:6px 15px; border-radius:20px; font-size:0.7rem;">LEAVE</button>
@@ -150,7 +133,7 @@
             </div>
 
             <div id="admin-panel">
-                <p style="font-size: 0.6rem; color: gold; font-weight: 800;">SESSION CONTROL</p>
+                <p style="font-size:0.6rem; color:gold; font-weight:800;">SESSION CONTROL</p>
                 <div id="host-dashboard"></div>
                 <div id="user-list" style="margin-top:10px;"></div>
                 <button class="admin-btn" style="width:100%;" onclick="nuclearReset()">CLEAR SESSION</button>
@@ -196,18 +179,21 @@
     let myPos = null, destPos = null, roadLine = null, roadGlow = null;
     const markers = {};
     let destMarker = null;
+    let map = null;
     const userId = Math.random().toString(36).substr(2, 4);
 
-    const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20.5937, 78.9629], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-    // Auto-fill session code if opened via shared link
     if (groupId) {
         setTimeout(() => {
             document.getElementById('main-actions').style.display = 'none';
             document.getElementById('join-panel').style.display = 'flex';
             document.getElementById('session-code-input').value = groupId;
         }, 100);
+    }
+
+    function initMap() {
+        if (map) return;
+        map = L.map('map', { zoomControl: false, attributionControl: false }).setView([20.5937, 78.9629], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     }
 
     function startCreateSession() {
@@ -242,6 +228,7 @@
     }
 
     function launchMap() {
+        initMap();
         document.getElementById('intro-page').classList.remove('active');
         document.getElementById('map-page').classList.add('active');
         setTimeout(() => map.invalidateSize(), 300);
@@ -348,4 +335,32 @@
                 const icon = L.divIcon({
                     className: 'c-icon',
                     html: `<div style="display:flex; flex-direction:column; align-items:center;">
-                            <div style="background:rgba(255,255,255,0.95); color:black; padding:2px 8px; border-radius:10px; font-size:10px; border:2px solid ${uCol}; white-space:nowrap; font-weight:bold; box-shadow: 0 4px 10px rgba(0
+                            <div style="background:rgba(255,255,255,0.95); color:black; padding:2px 8px; border-radius:10px; font-size:10px; border:2px solid ${uCol}; white-space:nowrap; font-weight:bold; box-shadow:0 4px 10px rgba(0,0,0,0.2); ${u.isHost?'animation:hostGlow 2s infinite;':''}">
+                                ${badge}${u.name} ${u.speed > 2 ? '• ' + u.speed + ' km/h' : ''}
+                            </div>
+                            <div style="width:12px; height:12px; background:${uCol}; border:2.5px solid #fff; border-radius:50%; margin-top:3px; box-shadow:0 4px 8px rgba(0,0,0,0.3);"></div>
+                          </div>`, iconSize: [40, 60], iconAnchor: [20, 60]
+                });
+                if (markers[id]) markers[id].setLatLng([u.lat, u.lng]).setIcon(icon);
+                else markers[id] = L.marker([u.lat, u.lng], { icon: icon }).addTo(map);
+            }
+            for (let id in markers) { if (!users || !users[id]) { map.removeLayer(markers[id]); delete markers[id]; } }
+        });
+    }
+
+    function toggleDashboard() { const d = document.getElementById('host-dashboard'); d.style.display = d.style.display === 'block' ? 'none' : 'block'; }
+    function sendMessage() { const input = document.getElementById('chat-msg'); if (input.value.trim()) { db.ref(`groups/${groupId}/chat`).push({ user: myName, text: input.value.trim() }); input.value = ""; } }
+    function kickUser(id) { if (confirm("Remove this member?")) db.ref(`groups/${groupId}/users/${id}`).remove(); }
+    function nuclearReset() { if (confirm("Clear entire session?")) { db.ref(`groups/${groupId}`).remove().then(()=>location.reload()); } }
+    function leaveSession() { db.ref(`groups/${groupId}/users/${userId}`).remove(); location.reload(); }
+    function toggleQR() { const m = document.getElementById('qr-modal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
+    function copySessionCode() { navigator.clipboard.writeText(groupId); alert("Code copied: " + groupId); }
+</script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js');
+    }
+</script>
+</body>
+</html>
